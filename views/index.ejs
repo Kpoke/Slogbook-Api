@@ -1,0 +1,14 @@
+<% include partials/header %>
+
+Everything for Admin/School
+
+<a class="btn btn-primary" href="/supervisor/register">Create Supervisor</a>
+
+<div>
+	<% admin.supervisor.forEach(function(supervisor){ %>
+		<li><%= supervisor.username %> currently managing <%= supervisor.student.length %> students</li>
+	<% }); %>
+</div>
+
+
+<% include partials/footer %>

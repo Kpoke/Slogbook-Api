@@ -1,0 +1,31 @@
+ <% include ../partials/header %>
+
+   <% student.message.forEach(function(message){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= message.author.name %></strong>
+                            <p>
+                                <%= message.report %> 
+                            </p>
+                           
+                        </div>
+                    </div>
+    <% }) %>
+
+
+    <div class="container">
+        <br>
+        <div class="jumbotron">
+            <form action="/supervisor/student/<%=student._id%>" method="POST">
+                <h1 class="display-4">Send Message to <%= student.name %></h1>
+                <br>
+                <textarea id = "message" name = "message" class="form-control" placeholder ="Your message"></textarea>
+                <br>
+                <button id="send" class="btn btn-success">Send</button>
+            </form>
+        </div>
+        <div id="messages">
+        </div>
+</div>
+
+<% include ../partials/footer %>

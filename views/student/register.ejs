@@ -1,0 +1,48 @@
+<% include ../partials/header %>
+
+
+<h1>Register a student</h1>
+<div class="container">
+		<div class="myForm">
+			<form action="/student/register" method="POST">
+				<div class="form-group">
+					<input class="form-control" type="text" name="name" placeholder="Student Name">	
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="text" name="username" placeholder="Student username">	
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="password" name="password" placeholder="Student password">	
+				</div>
+				<div class="form-group">
+					<label for="duration">Duration</label>
+					<select id="duration" name="duration" class="col-md-3">
+					  <option value="1">1 month</option>
+					  <option value="2">2 months</option>
+					  <option value="3">3 months</option>
+					  <option value="4">4 months</option>
+					  <option value="5">5 months</option>
+					  <option value="6">6 months</option>
+					</select>  
+				</div>
+				<div class="form-group">
+					<label for="startdate">IT start date</label>
+					<input class="form-control" id="startdate" type="date" name="startDate">	
+				</div>
+				<div class="form-group">
+					<label for="enddate">IT end date</label>
+					<input class="form-control" id ="enddate" type="date" name="endDate">	
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="text" name="companyName" placeholder="Name of Company">	
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="text" name="location" placeholder="Location">	
+				</div>
+				<button class="btn btn-primary ">Send Signup request</button>
+			</form>
+		</div>
+</div>
+	
+
+<% include ../partials/footer %>
