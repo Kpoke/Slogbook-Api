@@ -1,6 +1,5 @@
-const IndustrySupervisor = require("../../models/industrysuper"),
-  Chat = require("../../models/chat"),
-  home = require("../services/home"),
+const home = require("../services/home"),
+  comment = require("../services/supervisor/comment"),
   login = require("../services/login");
 
 module.exports = {
@@ -37,14 +36,18 @@ module.exports = {
   },
 
   comment: async (req, res) => {
-    let update = {
-      industrySupervisorsComment: req.body.comment,
-    };
-    let filter = { _id: req.body.messageId };
-    let message = await Chat.findOneAndUpdate(filter, update);
-    if (!message) {
-      return res.status(422).send({ error: "Username Invalid" });
+    try {
+      let update = {
+        industrySupervisorsComment: req.body.comment,
+      };
+      let filter = { _id: req.body.messageId };
+      const result = await comment(update, filter);
+      if (result.error)
+        return res.status(result.status).send({ error: result.error });
+
+      res.send({ report: result.report });
+    } catch (e) {
+      res.status(500).send(e.message);
     }
-    res.send({ feedback: "Saved" });
   },
 };

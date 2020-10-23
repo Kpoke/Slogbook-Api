@@ -35,7 +35,7 @@ module.exports = (app) => {
     middlewares.isAuthorized(process.env.SUPERVISORKEY),
     student.register
   );
-  app.post(
+  app.patch(
     "/student/update",
     middlewares.isAuthorized(process.env.STUDENTKEY),
     student.update
@@ -59,7 +59,7 @@ module.exports = (app) => {
     supervisor.register
   );
   app.post("/supervisor/login", supervisor.login);
-  app.post(
+  app.patch(
     "/supervisor/comment",
     middlewares.isAuthorized(process.env.SUPERVISORKEY),
     supervisor.comment
