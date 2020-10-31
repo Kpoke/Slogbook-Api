@@ -44,6 +44,7 @@ module.exports = (app) => {
   app.post(
     "/student/message",
     middlewares.isAuthorized(process.env.STUDENTKEY),
+    middlewares.multerSetup.single("image"),
     student.message
   );
 

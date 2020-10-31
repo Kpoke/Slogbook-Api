@@ -3,7 +3,10 @@ const passwordHash = require("./passwordPlugin");
 
 var SupervisorSchema = new mongoose.Schema({
   name: String,
-  username: String,
+  username: {
+    type: String,
+    unique: true,
+  },
   password: String,
   student: [
     {
@@ -12,7 +15,10 @@ var SupervisorSchema = new mongoose.Schema({
     },
   ],
   frequency: String,
-  email: String,
+  email: {
+    type: String,
+    unique: true,
+  },
 });
 
 SupervisorSchema.plugin(passwordHash);

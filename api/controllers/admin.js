@@ -14,7 +14,7 @@ module.exports = admin = {
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 
-      res.send({ user: result.user });
+      res.send({ admin: result.user });
     } catch (e) {
       res.status(500).send(e.message);
     }

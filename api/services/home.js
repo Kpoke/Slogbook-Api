@@ -8,5 +8,18 @@ module.exports = async (id, populateObject, key) => {
   if (!user) {
     return generateError("Account Not Found", 422);
   }
+  if (user.student) {
+    let total = 0;
+    user.student.forEach((student) => {
+      reports = student.message;
+      reports.forEach((entry) => {
+        if (entry.isReport && entry.score) {
+          total += entry.score;
+        }
+      });
+      student.score = total;
+      student.save();
+    });
+  }
   return { user };
 };

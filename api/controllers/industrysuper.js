@@ -3,13 +3,13 @@ const home = require("../services/home"),
   login = require("../services/login");
 
 module.exports = {
-  home: (req, res) => {
+  home: async (req, res) => {
     try {
       const populateObject = {
         path: "student",
         populate: { path: "message" },
       };
-      const result = home(
+      const result = await home(
         req.userId,
         populateObject,
         process.env.INDUSTRYSUPERVISORKEY
@@ -17,7 +17,7 @@ module.exports = {
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 
-      res.send({ user: result.user });
+      res.send({ industrySupervisor: result.user });
     } catch (e) {
       res.status(500).send(e.message);
     }
@@ -45,7 +45,7 @@ module.exports = {
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 
-      res.send({ report: result.report });
+      res.send({ message: result.message });
     } catch (e) {
       res.status(500).send(e.message);
     }

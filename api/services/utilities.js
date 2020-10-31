@@ -1,7 +1,3 @@
-const generateError = (message, status) => {
-  return { error: message, status };
-};
-
 const Admin = require("../../models/admin");
 const Student = require("../../models/student");
 const Supervisor = require("../../models/supervisor");
@@ -22,17 +18,37 @@ const getModel = (key) => {
   }
 };
 
-//find whre t put this later
-// let total = 0;
-//           supervisor.student.forEach((student) => {
-//             reports = student.message;
-//             reports.forEach((entry) => {
-//               if (entry.isReport && entry.score) {
-//                 total += entry.score;
-//               }
-//             });
-//             student.score = total;
-//             student.save();
-//           });
+const generateError = (message, status) => {
+  return { error: message, status };
+};
 
-module.exports = { generateError, getModel };
+const generateDateArray = (startDate, frequency) => {
+  Date.prototype.addDay = function (days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  };
+  let dateArray = [];
+  let i = 0;
+  date = new Date(startDate);
+  if (frequency == "Daily") {
+    while (i < 183) {
+      dateArray.push(date);
+      if (date.getDay() == 6 || date.getDay() == 0) {
+        dateArray.pop();
+      }
+      date = date.addDay(1);
+      i++;
+    }
+  }
+  if (frequency === "Weekly") {
+    while (i < 26) {
+      dateArray.push(date);
+      date = date.addDay(7);
+      i++;
+    }
+  }
+  return dateArray;
+};
+
+module.exports = { generateError, getModel, generateDateArray };
