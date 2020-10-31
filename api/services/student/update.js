@@ -24,7 +24,7 @@ module.exports = async (studentId, formData) => {
   }
 
   let industrySuper = await IndustrySupervisor.findOne({
-    username: formData.authIndustryObject.industrySuperUsername,
+    name: formData.authIndustryObject.industrySuperName,
     companyName: formData.companyName,
   });
 
