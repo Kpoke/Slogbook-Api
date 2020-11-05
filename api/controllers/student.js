@@ -28,7 +28,7 @@ module.exports = {
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 
-      res.send({ student: result.user });
+      res.status(201).send({ student: result.user });
     } catch (e) {
       res.status(500).send(e.message);
     }
@@ -55,7 +55,7 @@ module.exports = {
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 
-      res.send({ token: result.token });
+      res.send({ token: result.token, user: result.user });
     } catch (e) {
       res.status(500).send(e.message);
     }
@@ -67,7 +67,7 @@ module.exports = {
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 
-      res.send({
+      res.status(201).send({
         message: result.message,
       });
     } catch (e) {

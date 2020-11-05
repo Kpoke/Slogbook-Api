@@ -10,7 +10,7 @@ module.exports = async (id, populateObject, key) => {
   }
   if (user.student) {
     let total = 0;
-    user.student.forEach((student) => {
+    user.student.forEach(async (student) => {
       reports = student.message;
       reports.forEach((entry) => {
         if (entry.isReport && entry.score) {
@@ -18,7 +18,7 @@ module.exports = async (id, populateObject, key) => {
         }
       });
       student.score = total;
-      student.save();
+      await student.save();
     });
   }
   return { user };

@@ -9,6 +9,10 @@ module.exports = async (
   { name, username, password, frequency, email }
 ) => {
   let flag = await Supervisor.exists({ username });
+  let flag2 = await Supervisor.exists({ email });
+  if (flag2) {
+    return generateError("Supervisor Email already exists", 422);
+  }
   if (!flag) {
     let admin = await Admin.findById(adminId);
     if (!admin) {
@@ -16,9 +20,9 @@ module.exports = async (
     }
     let user = new Supervisor({ name, username, password, frequency, email });
 
-    user.save();
+    await user.save();
     admin.supervisor.push(user._id);
-    admin.save();
+    await admin.save();
 
     jwt.sign({ userid: user._id }, process.env.SUPERVISORKEY);
     return { user };

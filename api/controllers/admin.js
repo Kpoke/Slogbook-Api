@@ -26,7 +26,7 @@ module.exports = admin = {
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 
-      res.send({ token: result.token });
+      res.status(201).send({ token: result.token, user: result.user });
     } catch (e) {
       res.status(500).send(e.message);
     }
@@ -38,7 +38,7 @@ module.exports = admin = {
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 
-      res.send({ token: result.token });
+      res.send({ token: result.token, user: result.user });
     } catch (e) {
       res.status(500).send(e.message);
     }

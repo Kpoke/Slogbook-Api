@@ -12,7 +12,7 @@ module.exports = async ({ username, password }) => {
     const user = new Admin({ username, password });
     await user.save();
     const token = jwt.sign({ userid: user._id }, process.env.ADMINKEY);
-    return { token };
+    return { token, user };
   }
 
   return generateError("Username already exists", 422);

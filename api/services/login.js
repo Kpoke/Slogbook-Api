@@ -17,5 +17,5 @@ module.exports = async ({ username, password }, key) => {
     return generateError("Invalid Username and Password Combination", 422);
   }
   const token = jwt.sign({ userid: user._id }, key);
-  return { token };
+  return { token, user };
 };

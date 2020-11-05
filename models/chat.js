@@ -6,7 +6,10 @@ var ChatSchema = mongoose.Schema({
   isReport: Boolean,
   industrySupervisorsComment: String,
   schoolSupervisorsComment: String,
-  score: Number,
+  score: {
+    type: Number,
+    max: 5,
+  },
   imagePublicId: String,
   imageUrl: String,
 });

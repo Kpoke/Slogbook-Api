@@ -6,6 +6,14 @@ const { generateError } = require("../utilities");
 
 module.exports = async (supervisorId, formData) => {
   let flag = await Student.exists({ matricNumber: formData.matric });
+  let flag2 = await Student.exists({ email: formData.email });
+  let flag3 = await Student.exists({ username: formData.username });
+  if (flag2) {
+    return generateError("Student Email already exists", 422);
+  }
+  if (flag3) {
+    return generateError("Student Username already exists", 422);
+  }
   if (!flag) {
     let supervisor = await Supervisor.findById(supervisorId);
     if (!supervisor) {
@@ -24,8 +32,8 @@ module.exports = async (supervisorId, formData) => {
     });
 
     supervisor.student.push(user._id);
-    supervisor.save();
-    user.save();
+    await supervisor.save();
+    await user.save();
 
     jwt.sign({ userid: user._id }, process.env.STUDENTKEY);
     return { user };

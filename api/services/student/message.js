@@ -38,14 +38,14 @@ module.exports = async (studentId, formData, multerImage) => {
     if (!image) {
       return generateError("An Error Occurred, Try Again", 500);
     }
-    message[imagePublicId] = image.public_id;
-    message[imageUrl] = image.url;
+    message["imagePublicId"] = image.public_id;
+    message["imageUrl"] = image.url;
   }
 
   let newMessage = new Chat(message);
-  newMessage.save();
+  await newMessage.save();
   student.message.push(newMessage._id);
-  student.save();
+  await student.save();
 
-  return { message };
+  return { message: newMessage };
 };
