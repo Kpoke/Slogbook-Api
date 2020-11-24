@@ -1,17 +1,11 @@
 const DatauriParser = require("datauri/parser");
 const parser = new DatauriParser();
-const cloudinary = require("cloudinary").v2;
+const cloudinary = require("../cloudinary.config");
 
 const Student = require("../../../models/student");
 const Chat = require("../../../models/chat");
 const { generateError } = require("../utilities");
 const path = require("path");
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 module.exports = async (studentId, formData, multerImage) => {
   let student = await Student.findById(studentId).populate("message");

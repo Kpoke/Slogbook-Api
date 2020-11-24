@@ -15,6 +15,8 @@ var industrySupervisorSchema = new mongoose.Schema({
     unique: true,
   },
   post: String,
+  avatarPublicId: String,
+  avatarUrl: String,
   student: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -15,6 +15,8 @@ var SupervisorSchema = new mongoose.Schema({
     },
   ],
   frequency: String,
+  avatarPublicId: String,
+  avatarUrl: String,
   email: {
     type: String,
     unique: true,

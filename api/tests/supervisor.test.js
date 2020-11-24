@@ -191,3 +191,18 @@ test("Should not comment a non-existing student enquiry", async () => {
     })
     .expect(422);
 });
+
+test("Should add a new supervisor avatar", async () => {
+  const response = await request(app)
+    .post("/api/avatar")
+    .set("Authorization", `Bearer ${supervisorOneToken}`)
+    .set("Content-Type", "multipart/form-data")
+    .attach(
+      "avatar",
+      "/home/kpoke/Documents/Projects/incomplete/Elogbook/backend/api/tests/fixtures/random.png"
+    )
+    .expect(200);
+
+  const user = await Supervisor.findById(response.body.user._id);
+  expect(user.avatarPublicId).toBe("publicid");
+});

@@ -29,6 +29,8 @@ var StudentSchema = new mongoose.Schema({
   companyPhoneNumber: Number,
   frequency: String,
   dateArray: Array,
+  avatarPublicId: String,
+  avatarUrl: String,
   message: [
     {
       type: mongoose.Schema.Types.ObjectId,

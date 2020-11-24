@@ -2,6 +2,7 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 
 const Chat = require("../../models/chat");
+const IndustrySupervisor = require("../../models/industrysuper");
 
 const app = require("../../app");
 const {
@@ -99,4 +100,19 @@ test("Should not comment a non-existing student enquiry", async () => {
       messageId: "5f9cff19f412ae0d4769942a",
     })
     .expect(422);
+});
+
+test("Should add a new industry supervisor avatar", async () => {
+  const response = await request(app)
+    .post("/api/avatar")
+    .set("Authorization", `Bearer ${industrySupervisorOneToken}`)
+    .set("Content-Type", "multipart/form-data")
+    .attach(
+      "avatar",
+      "/home/kpoke/Documents/Projects/incomplete/Elogbook/backend/api/tests/fixtures/random.png"
+    )
+    .expect(200);
+
+  const user = await IndustrySupervisor.findById(response.body.user._id);
+  expect(user.avatarPublicId).toBe("publicid");
 });

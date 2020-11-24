@@ -75,3 +75,18 @@ test("Should get profile for existing admin", async () => {
 test("Should not get profile for unauthorized admin", async () => {
   await request(app).get("/api/admin").expect(401);
 });
+
+test("Should add a new student avatar", async () => {
+  const response = await request(app)
+    .post("/api/avatar")
+    .set("Authorization", `Bearer ${adminOneToken}`)
+    .set("Content-Type", "multipart/form-data")
+    .attach(
+      "avatar",
+      "/home/kpoke/Documents/Projects/incomplete/Elogbook/backend/api/tests/fixtures/random.png"
+    )
+    .expect(200);
+
+  const user = await Admin.findById(response.body.user._id);
+  expect(user.avatarPublicId).toBe("publicid");
+});

@@ -109,6 +109,7 @@ test("Should not create student with existing username", async () => {
 });
 
 test("Should create a student account", async () => {
+  jest.setTimeout(7000);
   const response = await request(app)
     .post("/api/student/register")
     .set("Authorization", `Bearer ${supervisorOneToken}`)
@@ -352,6 +353,32 @@ test("Should not create a new student report by unauthorized user", async () => 
     .field("date", "11/5/2020")
     .attach(
       "image",
+      "/home/kpoke/Documents/Projects/incomplete/Elogbook/backend/api/tests/fixtures/random.png"
+    )
+    .expect(401);
+});
+
+test("Should add a new student avatar", async () => {
+  const response = await request(app)
+    .post("/api/avatar")
+    .set("Authorization", `Bearer ${studentOneToken}`)
+    .set("Content-Type", "multipart/form-data")
+    .attach(
+      "avatar",
+      "/home/kpoke/Documents/Projects/incomplete/Elogbook/backend/api/tests/fixtures/random.png"
+    )
+    .expect(200);
+
+  const user = await Student.findById(response.body.user._id);
+  expect(user.avatarPublicId).toBe("publicid");
+});
+
+test("Should not add a new student avatar by unauthorized user", async () => {
+  await request(app)
+    .post("/api/avatar")
+    .set("Content-Type", "multipart/form-data")
+    .attach(
+      "avatar",
       "/home/kpoke/Documents/Projects/incomplete/Elogbook/backend/api/tests/fixtures/random.png"
     )
     .expect(401);

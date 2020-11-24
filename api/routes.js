@@ -1,4 +1,10 @@
-const { admin, industrysuper, student, supervisor } = require("./controllers");
+const {
+  admin,
+  industrysuper,
+  student,
+  supervisor,
+  setAvatar,
+} = require("./controllers");
 const middlewares = require("../middlewares");
 
 module.exports = (app) => {
@@ -64,6 +70,14 @@ module.exports = (app) => {
     "/supervisor/comment",
     middlewares.isAuthorized(process.env.SUPERVISORKEY),
     supervisor.comment
+  );
+
+  //AVATAR
+  app.post(
+    "/avatar",
+    middlewares.isAuthorized(),
+    middlewares.multerSetup.single("avatar"),
+    setAvatar
   );
 
   app.get("*", (req, res) => {
