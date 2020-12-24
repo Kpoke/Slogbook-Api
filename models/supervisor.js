@@ -8,6 +8,10 @@ var SupervisorSchema = new mongoose.Schema({
     unique: true,
   },
   password: String,
+  isSupervisor: {
+    type: Boolean,
+    default: true,
+  },
   student: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -6,6 +6,10 @@ var AdminSchema = new mongoose.Schema({
   password: String,
   avatarPublicId: String,
   avatarUrl: String,
+  isAdmin: {
+    type: Boolean,
+    default: true,
+  },
   supervisor: [
     {
       type: mongoose.Schema.Types.ObjectId,

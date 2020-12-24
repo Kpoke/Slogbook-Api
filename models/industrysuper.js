@@ -14,6 +14,10 @@ var industrySupervisorSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
+  isIndustrySupervisor: {
+    type: Boolean,
+    default: true,
+  },
   post: String,
   avatarPublicId: String,
   avatarUrl: String,
