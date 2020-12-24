@@ -8,9 +8,9 @@ var SupervisorSchema = new mongoose.Schema({
     unique: true,
   },
   password: String,
-  isSupervisor: {
-    type: Boolean,
-    default: true,
+  role: {
+    type: String,
+    default: "Supervisor",
   },
   student: [
     {

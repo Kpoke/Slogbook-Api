@@ -31,9 +31,9 @@ var StudentSchema = new mongoose.Schema({
   dateArray: Array,
   avatarPublicId: String,
   avatarUrl: String,
-  isStudent: {
-    type: Boolean,
-    default: true,
+  role: {
+    type: String,
+    default: "Student",
   },
   message: [
     {

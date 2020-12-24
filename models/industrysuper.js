@@ -14,9 +14,9 @@ var industrySupervisorSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
-  isIndustrySupervisor: {
-    type: Boolean,
-    default: true,
+  role: {
+    type: String,
+    default: "IndustrySupervisor",
   },
   post: String,
   avatarPublicId: String,
