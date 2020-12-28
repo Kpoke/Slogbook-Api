@@ -109,7 +109,6 @@ test("Should not create student with existing username", async () => {
 });
 
 test("Should create a student account", async () => {
-  jest.setTimeout(7000);
   const response = await request(app)
     .post("/api/student/register")
     .set("Authorization", `Bearer ${supervisorOneToken}`)

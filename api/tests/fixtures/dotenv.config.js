@@ -1,5 +1,7 @@
 require("dotenv").config({ path: "./api/tests/tests.env" });
 
+jest.setTimeout(30000);
+
 // 	const clearDB = () => {
 // 		Admin.deleteMany({}, err => {
 // 			if (err) {

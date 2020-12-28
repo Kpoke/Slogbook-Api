@@ -1,11 +1,11 @@
 const login = require("../services/login");
 const home = require("../services/home");
 const register = require("../services/admin/register");
+const populateObject = "supervisor";
 
 module.exports = admin = {
   admin: async (req, res) => {
     try {
-      const populateObject = "supervisor";
       const result = await home(
         req.userId,
         populateObject,
@@ -34,7 +34,11 @@ module.exports = admin = {
 
   login: async (req, res) => {
     try {
-      const result = await login(req.body, process.env.ADMINKEY);
+      const result = await login(
+        req.body,
+        process.env.ADMINKEY,
+        populateObject
+      );
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 

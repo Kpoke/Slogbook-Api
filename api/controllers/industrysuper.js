@@ -2,13 +2,13 @@ const home = require("../services/home"),
   comment = require("../services/supervisor/comment"),
   login = require("../services/login");
 
+const populateObject = {
+  path: "student",
+  populate: { path: "message" },
+};
 module.exports = {
   home: async (req, res) => {
     try {
-      const populateObject = {
-        path: "student",
-        populate: { path: "message" },
-      };
       const result = await home(
         req.userId,
         populateObject,
@@ -25,7 +25,11 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const result = await login(req.body, process.env.INDUSTRYSUPERVISORKEY);
+      const result = await login(
+        req.body,
+        process.env.INDUSTRYSUPERVISORKEY,
+        populateObject
+      );
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 

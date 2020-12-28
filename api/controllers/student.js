@@ -4,10 +4,10 @@ const login = require("../services/login"),
   home = require("../services/home"),
   message = require("../services/student/message");
 
+const populateObject = "message";
 module.exports = {
   home: async (req, res) => {
     try {
-      const populateObject = "message";
       const result = await home(
         req.userId,
         populateObject,
@@ -51,7 +51,11 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const result = await login(req.body, process.env.STUDENTKEY);
+      const result = await login(
+        req.body,
+        process.env.STUDENTKEY,
+        populateObject
+      );
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 

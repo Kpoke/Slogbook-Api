@@ -3,12 +3,12 @@ const jwt = require("jsonwebtoken");
 
 const { generateError, getModel } = require("./utilities");
 
-module.exports = async ({ username, password }, key) => {
+module.exports = async ({ username, password }, key, populateObject) => {
   const Model = getModel(key);
   if (!Model) throw new Error("illegal Key");
   if (!username || !password)
     return generateError("Must provide Username and Password", 422);
-  let user = await Model.findOne({ username });
+  let user = await Model.findOne({ username }).populate(populateObject);
   if (!user) {
     return generateError("Invalid Username and Password Combination", 422);
   }
