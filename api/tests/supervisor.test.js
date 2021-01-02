@@ -89,16 +89,6 @@ test("Should create a supervisor account", async () => {
     })
     .expect(201);
 
-  const supervisor = await Supervisor.findById(response.body.supervisor._id);
-  expect(supervisor).not.toBeNull();
-
-  expect(response.body.supervisor).toMatchObject({
-    name: "Bruno Fernandes",
-    username: "Bfernandes",
-    frequency: "Weekly",
-    email: "Bfernandes@yahoo.com",
-  });
-
   const admin = await Admin.findById(adminOneId);
   expect(admin.supervisor.length).toBe(1);
 });

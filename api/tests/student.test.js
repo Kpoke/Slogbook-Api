@@ -124,20 +124,6 @@ test("Should create a student account", async () => {
     })
     .expect(201);
 
-  const student = await Student.findById(response.body.student._id);
-  expect(student).not.toBeNull();
-  expect(student.frequency).toBe(supervisorOne.frequency);
-
-  expect(response.body.student).toMatchObject({
-    name: "Uchiha Sasuske",
-    username: "Usasuske",
-    matricNumber: 192107,
-    courseOfStudy: "Killing Itachi ",
-    session: "2019/2020",
-    levelDuringTraining: 400,
-    email: "UchihaSasuske@gmail.com",
-  });
-
   const supervisor = await Supervisor.findById(supervisorOneId);
   expect(supervisor.student.length).toBe(1);
 });

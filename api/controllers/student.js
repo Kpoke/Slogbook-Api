@@ -2,10 +2,12 @@ const login = require("../services/login"),
   register = require("../services/student/register"),
   update = require("../services/student/update"),
   home = require("../services/home"),
-  message = require("../services/student/message");
+  message = require("../services/student/message"),
+  { populateObject: supervisorPopulateObject } = require("./supervisor");
 
 const populateObject = "message";
 module.exports = {
+  populateObject,
   home: async (req, res) => {
     try {
       const result = await home(
@@ -24,11 +26,15 @@ module.exports = {
 
   register: async (req, res) => {
     try {
-      const result = await register(req.userId, req.body);
+      const result = await register(
+        req.userId,
+        req.body,
+        supervisorPopulateObject
+      );
       if (result.error)
         return res.status(result.status).send({ error: result.error });
 
-      res.status(201).send({ student: result.user });
+      res.status(201).send({ user: result.user });
     } catch (e) {
       res.status(500).send(e.message);
     }

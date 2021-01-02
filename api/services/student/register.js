@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const { generateError } = require("../utilities");
 
-module.exports = async (supervisorId, formData) => {
+module.exports = async (supervisorId, formData, populateObject) => {
   let flag = await Student.exists({ matricNumber: formData.matric });
   let flag2 = await Student.exists({ email: formData.email });
   let flag3 = await Student.exists({ username: formData.username });
@@ -15,7 +15,9 @@ module.exports = async (supervisorId, formData) => {
     return generateError("Student Username already exists", 422);
   }
   if (!flag) {
-    let supervisor = await Supervisor.findById(supervisorId);
+    let supervisor = await Supervisor.findById(supervisorId).populate(
+      populateObject
+    );
     if (!supervisor) {
       return generateError("User not Authorized to Perform this Action", 422);
     }
@@ -36,7 +38,7 @@ module.exports = async (supervisorId, formData) => {
     await user.save();
 
     jwt.sign({ userid: user._id }, process.env.STUDENTKEY);
-    return { user };
+    return { user: supervisor };
   }
 
   return generateError("Student Matric Number already exists", 422);

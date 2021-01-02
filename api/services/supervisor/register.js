@@ -6,7 +6,8 @@ const { generateError } = require("../utilities");
 
 module.exports = async (
   adminId,
-  { name, username, password, frequency, email }
+  { name, username, password, frequency, email },
+  populateObject
 ) => {
   let flag = await Supervisor.exists({ username });
   let flag2 = await Supervisor.exists({ email });
@@ -14,7 +15,7 @@ module.exports = async (
     return generateError("Supervisor Email already exists", 422);
   }
   if (!flag) {
-    let admin = await Admin.findById(adminId);
+    let admin = await Admin.findById(adminId).populate(populateObject);
     if (!admin) {
       return generateError("User not Authorized to Perform this Action", 422);
     }
@@ -25,7 +26,7 @@ module.exports = async (
     await admin.save();
 
     jwt.sign({ userid: user._id }, process.env.SUPERVISORKEY);
-    return { user };
+    return { user: admin };
   }
 
   return generateError("Supervisor Username already exists", 422);

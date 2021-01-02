@@ -4,6 +4,7 @@ const register = require("../services/admin/register");
 const populateObject = "supervisor";
 
 module.exports = admin = {
+  populateObject,
   admin: async (req, res) => {
     try {
       const result = await home(

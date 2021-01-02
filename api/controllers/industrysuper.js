@@ -7,6 +7,7 @@ const populateObject = {
   populate: { path: "message" },
 };
 module.exports = {
+  populateObject,
   home: async (req, res) => {
     try {
       const result = await home(
