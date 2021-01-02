@@ -3,16 +3,31 @@ const Student = require("../../models/student");
 const Supervisor = require("../../models/supervisor");
 const IndustrySupervisor = require("../../models/industrysuper");
 
-const getModel = (key) => {
+const getModel = (key, getPopulateObject) => {
+  const {
+    populateObject: adminPopulateObject,
+  } = require("../controllers/admin");
+  const {
+    populateObject: industrysuperPopulateObject,
+  } = require("../controllers/industrysuper");
+  const {
+    populateObject: studentPopulateObject,
+  } = require("../controllers/student");
+  const {
+    populateObject: supervisorPopulateObject,
+  } = require("../controllers/supervisor");
+  const returnObject = (Model, populateObject) => {
+    return getPopulateObject ? { Model, populateObject } : Model;
+  };
   switch (key) {
     case process.env.ADMINKEY:
-      return Admin;
+      return returnObject(Admin, adminPopulateObject);
     case process.env.STUDENTKEY:
-      return Student;
+      return returnObject(Student, studentPopulateObject);
     case process.env.SUPERVISORKEY:
-      return Supervisor;
+      return returnObject(Supervisor, supervisorPopulateObject);
     case process.env.INDUSTRYSUPERVISORKEY:
-      return IndustrySupervisor;
+      return returnObject(IndustrySupervisor, industrysuperPopulateObject);
     default:
       return null;
   }
@@ -50,5 +65,7 @@ const generateDateArray = (startDate, frequency) => {
   }
   return dateArray;
 };
+
+console.log(generateDateArray("01/04/2021", "Weekly"));
 
 module.exports = { generateError, getModel, generateDateArray };

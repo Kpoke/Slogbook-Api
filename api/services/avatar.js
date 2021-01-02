@@ -5,8 +5,8 @@ const parser = new DatauriParser();
 const cloudinary = require("./cloudinary.config");
 const { generateError, getModel } = require("./utilities");
 
-module.exports = async (id, key, multerImage, populateObject) => {
-  const Model = getModel(key);
+module.exports = async (id, key, multerImage) => {
+  const { Model, populateObject } = getModel(key, true);
   if (!Model) throw new Error("illegal Key");
 
   const user = await Model.findById(id).populate(populateObject);

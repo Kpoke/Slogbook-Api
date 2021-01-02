@@ -21,7 +21,7 @@ module.exports = async (studentId, formData) => {
     return generateError("User does not exists", 422);
   }
 
-  if (student.dateArray.length || student.companyName) {
+  if (student.dateArray.length) {
     return generateError("Student Information cannnot be updated again", 422);
   }
 
