@@ -10,9 +10,7 @@ const setAvatar = async (req, res) => {
     if (result.error)
       return res.status(result.status).send({ error: result.error });
 
-    res.status(200).send({
-      user: result.user,
-    });
+    res.status(200).send();
   } catch (e) {
     res.status(500).send(e.message);
   }

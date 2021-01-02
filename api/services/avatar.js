@@ -5,11 +5,11 @@ const parser = new DatauriParser();
 const cloudinary = require("./cloudinary.config");
 const { generateError, getModel } = require("./utilities");
 
-module.exports = async (id, key, multerImage) => {
+module.exports = async (id, key, multerImage, populateObject) => {
   const Model = getModel(key);
   if (!Model) throw new Error("illegal Key");
 
-  const user = await Model.findById(id);
+  const user = await Model.findById(id).populate(populateObject);
   if (!user) {
     return generateError("Account Not Found", 422);
   }
