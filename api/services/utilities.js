@@ -66,6 +66,4 @@ const generateDateArray = (startDate, frequency) => {
   return dateArray;
 };
 
-console.log(generateDateArray("01/04/2021", "Weekly"));
-
 module.exports = { generateError, getModel, generateDateArray };
