@@ -46,9 +46,6 @@ const generateDateArray = (startDate, frequency) => {
   let dateArray = [];
   let i = 0;
   date = new Date(startDate);
-  console.log(date);
-  console.log("======");
-  console.log(frequency);
   if (frequency == "Daily") {
     while (i < 183) {
       dateArray.push(date);
@@ -65,10 +62,6 @@ const generateDateArray = (startDate, frequency) => {
       date = date.addDay(7);
       i++;
     }
-  }
-  console.log("got here..........");
-  if (dateArray.length > 0) {
-    console.log("dateArray is not empty");
   }
   return dateArray;
 };
