@@ -15,9 +15,7 @@ module.exports = async (supervisorId, formData, populateObject) => {
     return generateError("Student Username already exists", 422);
   }
   if (!flag) {
-    let supervisor = await Supervisor.findById(supervisorId).populate(
-      populateObject
-    );
+    let supervisor = await Supervisor.findById(supervisorId);
     if (!supervisor) {
       return generateError("User not Authorized to Perform this Action", 422);
     }
@@ -38,7 +36,9 @@ module.exports = async (supervisorId, formData, populateObject) => {
     await user.save();
 
     jwt.sign({ userid: user._id }, process.env.STUDENTKEY);
-    return { user: supervisor };
+    return {
+      user: await Supervisor.findById(supervisorId).populate(populateObject),
+    };
   }
 
   return generateError("Student Matric Number already exists", 422);

@@ -63,6 +63,7 @@ const generateDateArray = (startDate, frequency) => {
       i++;
     }
   }
+  console.log("got here..........");
   return dateArray;
 };
 

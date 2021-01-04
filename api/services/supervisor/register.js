@@ -15,7 +15,7 @@ module.exports = async (
     return generateError("Supervisor Email already exists", 422);
   }
   if (!flag) {
-    let admin = await Admin.findById(adminId).populate(populateObject);
+    let admin = await Admin.findById(adminId);
     if (!admin) {
       return generateError("User not Authorized to Perform this Action", 422);
     }
@@ -26,7 +26,7 @@ module.exports = async (
     await admin.save();
 
     jwt.sign({ userid: user._id }, process.env.SUPERVISORKEY);
-    return { user: admin };
+    return { user: await Admin.findById(adminId).populate(populateObject) };
   }
 
   return generateError("Supervisor Username already exists", 422);
