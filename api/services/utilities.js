@@ -64,6 +64,9 @@ const generateDateArray = (startDate, frequency) => {
     }
   }
   console.log("got here..........");
+  if (dateArray.length > 0) {
+    console.log("dateArray is not empty");
+  }
   return dateArray;
 };
 
